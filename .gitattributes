@@ -1,0 +1,23 @@
+# Set default behavior to automatically handle line endings
+* text=auto
+
+# Source code and scripts
+*.cs text diff=csharp eol=crlf
+*.ps1 text eol=crlf
+*.md text eol=lf
+*.txt text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Binary files
+*.exe binary
+*.dll binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.dvo binary
+*.avi binary
+*.mp4 binary
+*.mkv binary

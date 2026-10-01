@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install FFmpeg
+        run: |
+          choco install ffmpeg --no-progress -y
+
+      - name: Build DivIDEo Studio
+        run: |
+          powershell -ExecutionPolicy Bypass -File .\build.ps1
+
+      - name: Run Self-Tests
+        run: |
+          powershell -ExecutionPolicy Bypass -File .\tests\run-tests.ps1

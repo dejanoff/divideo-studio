@@ -1,0 +1,46 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-release:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install FFmpeg
+        run: |
+          choco install ffmpeg --no-progress -y
+
+      - name: Build DivIDEo Studio
+        run: |
+          powershell -ExecutionPolicy Bypass -File .\build.ps1
+
+      - name: Run Self-Tests
+        run: |
+          powershell -ExecutionPolicy Bypass -File .\tests\run-tests.ps1
+
+      - name: Package Release
+        shell: pwsh
+        run: |
+          $tag = "${{ github.ref_name }}"
+          $zipName = "DivideoStudio-$tag-windows-x64.zip"
+          Compress-Archive -Path "DivideoStudio.exe", "README.md", "ИНСТРУКЦИЯ.md", "LICENSE" -DestinationPath $zipName
+          Write-Output "ZIP_NAME=$zipName" >> $env:GITHUB_ENV
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            DivideoStudio.exe
+            ${{ env.ZIP_NAME }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true

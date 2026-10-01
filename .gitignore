@@ -1,0 +1,34 @@
+# Build outputs (Large standalone binary distributed via GitHub Releases)
+DivideoStudio.exe
+DivideoStudio-build-*.exe
+*.tmp
+*.dvo.tmp
+*.obj
+*.pdb
+
+# Temporary folders created during execution
+DivideoJob-*
+DivideoFrame-*
+
+# IDE and Editor Files
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Windows System Files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Test generated artifacts
+tests/*.dvo
+tests/*.avi
+tests/*.mp4
+tests/report.txt
+
+# Logs
+*.log
